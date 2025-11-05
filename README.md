@@ -112,9 +112,28 @@ composer db-diff db:check --help
 
 ## Testing
 
+### Testing Approach
+
+The project uses **unit tests** to ensure the core logic is reliable and works as expected. The main principles of the testing approach are:
+
+*   **Isolation:** Tests are designed to run in isolation, without the need for a live database connection. This makes them fast and reliable.
+*   **Mock Data:** The tests use simple PHP arrays to simulate database schema snapshots. This mock data is managed in a base `TestCase` (`tests/TestCase.php`) to promote reuse and keep the tests clean.
+*   **Maintainability:** By using a base test case and clear, descriptive test methods, the test suite is designed to be easy to maintain and extend.
+
+### Running Tests
+
 *   **Framework:** PHPUnit is used for unit and integration tests.
     *   **Configuration:** PHPUnit automatically uses the `phpunit.xml.dist` file for its configuration. This file specifies that tests are located in the `./tests` directory and that test files should end with `Test.php`.
 *   **How to run tests:** You can run the test suite using Composer:
     ```bash
     composer test
     ```
+
+## Continuous Integration
+
+This project uses GitHub Actions to automatically run the test suite on every push and pull request to the `main` branch.
+
+*   **Workflow:** The CI workflow is defined in the `.github/workflows/ci.yml` file.
+*   **Environment:** The tests are run in a minimal `php:8.1-alpine` Docker container to ensure a consistent and lightweight testing environment.
+
+This automated process ensures that any new changes are automatically verified, maintaining the quality and reliability of the library.

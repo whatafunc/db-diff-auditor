@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # The host runner to run the container on
+    container: php:8.1-alpine # Use a PHP Alpine Docker image for the job
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Composer dependencies
+      run: |
+        apk add --no-cache git # Install git inside the container for composer
+        composer install --prefer-dist --no-progress
+
+    - name: Run Tests
+      run: composer test
