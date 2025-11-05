@@ -1,7 +1,27 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
+// Look for the autoloader in a few different places
+$autoloaderPaths = [
+    // The autoloader when this is a dependency
+    __DIR__ . '/../../../autoload.php',
+    // The autoloader when this is the main project
+    __DIR__ . '/../vendor/autoload.php',
+];
+
+$autoloaderFound = false;
+foreach ($autoloaderPaths as $path) {
+    if (file_exists($path)) {
+        require $path;
+        $autoloaderFound = true;
+        break;
+    }
+}
+
+if (!$autoloaderFound) {
+    fwrite(STDERR, "Could not find autoload.php. Did you run 'composer install'?\n");
+    exit(1);
+}
 
 use Symfony\Component\Console\Application;
 
