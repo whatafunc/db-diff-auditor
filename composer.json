@@ -8,14 +8,21 @@
     },
     "require-dev": {
         "symfony/console": "^5.4",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
             "DbDiffAuditor\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "DbDiffAuditor\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
-        "db-diff": "php bin/db-diff"
+        "db-diff": "php bin/db-diff",
+        "test": "phpunit"
     }
 }

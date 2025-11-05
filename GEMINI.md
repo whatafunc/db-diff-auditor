@@ -31,3 +31,7 @@ A PHP-based, framework-agnostic library for database schema auditing and diffing
 
 *   **Framework:** PHPUnit is recommended for unit and integration tests.
 *   **How to run tests:** (To be determined, e.g., `composer test`).
+
+## Project Gotchas
+
+*   **`composer.json` Backslash Escaping:** When defining `psr-4` namespaces in `composer.json`, remember that backslashes must be escaped. For example, `DbDiffAuditor\` must be written as `DbDiffAuditor\\`.

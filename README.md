@@ -109,3 +109,12 @@ You can also use the `--help` flag with any command to get more information, for
 ```bash
 composer db-diff db:check --help
 ```
+
+## Testing
+
+*   **Framework:** PHPUnit is used for unit and integration tests.
+    *   **Configuration:** PHPUnit automatically uses the `phpunit.xml.dist` file for its configuration. This file specifies that tests are located in the `./tests` directory and that test files should end with `Test.php`.
+*   **How to run tests:** You can run the test suite using Composer:
+    ```bash
+    composer test
+    ```
