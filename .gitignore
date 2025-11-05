@@ -1,0 +1,5 @@
+.env
+vendor/
+.db-snapshots/
+changes.sql
+composer.lock
