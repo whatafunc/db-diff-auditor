@@ -22,7 +22,8 @@
         }
     },
     "scripts": {
-        "db-diff": "php bin/db-diff",
+        "db-diff": "db-diff",
         "test": "phpunit"
-    }
+    },
+    "bin": ["bin/db-diff"]
 }
