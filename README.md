@@ -17,7 +17,17 @@ A PHP-based database schema auditing tool designed to work with MySQL and Postgr
 
 ## Installation
 
-You can install the library via Composer:
+Before installing this library, ensure you have Composer, the PHP dependency manager, installed on your system.
+
+To check if Composer is installed, open your terminal or command prompt and run:
+
+```bash
+composer -V
+```
+
+If Composer is not installed, you can follow the official installation guide: [https://getcomposer.org/download/](https://getcomposer.org/download/)
+
+You can then install the library via Composer:
 
 ```bash
 composer require whatafunc/db-diff-auditor
