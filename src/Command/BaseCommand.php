@@ -10,15 +10,15 @@ abstract class BaseCommand extends Command
 {
     protected function getAuditor(): DbDiffAuditor
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../../../');
+        $dotenv = Dotenv::createImmutable(DB_DIFF_AUDITOR_PROJECT_ROOT);
         $dotenv->load();
 
         $config = [
             'connection' => [
                 'driver' => $_ENV['DB_DRIVER'] ?? 'mysql',
                 'host' => $_ENV['DB_HOST'] ?? 'localhost',
-                'database' => $_ENV['DB_DATABASE'] ?? 'mydatabase',
-                'username' => $_ENV['DB_USERNAME'] ?? 'root',
+                'database' => $_ENV['DB_NAME'] ?? 'mydatabase',
+                'username' => $_ENV['DB_USER'] ?? 'root',
                 'password' => $_ENV['DB_PASSWORD'] ?? '',
                 'port' => $_ENV['DB_PORT'] ?? 3306,
             ],

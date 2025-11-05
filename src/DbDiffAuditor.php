@@ -40,7 +40,7 @@ class DbDiffAuditor
         $last = $this->snapshots->getLatest();
         
         if (!$last) {
-            throw new 	tamente("No snapshots found. Create one first with createSnapshot()");
+            throw new \RuntimeException("No snapshots found. Create one first with createSnapshot()");
         }
         
         return $this->differ->compare($last, $current);
