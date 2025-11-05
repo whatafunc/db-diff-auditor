@@ -10,7 +10,9 @@ abstract class BaseCommand extends Command
 {
     protected function getAuditor(): DbDiffAuditor
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../../');
+        $path = realpath(__DIR__ . '/../../../../');
+        echo "Checking for .env file in: $path\n";
+        $dotenv = Dotenv::createImmutable($path);
         $dotenv->load();
 
         $config = [
