@@ -13,6 +13,7 @@ $autoloaderFound = false;
 foreach ($autoloaderPaths as $path) {
     if (file_exists($path)) {
         require $path;
+        // Define the project root based on the autoloader path
         define('DB_DIFF_AUDITOR_PROJECT_ROOT', dirname($path, 2));
         $autoloaderFound = true;
         break;
