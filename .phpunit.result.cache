@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"DbDiffAuditor\\Tests\\DiffGeneratorTest::testCompareDetectsAddedColumn":0.006,"DbDiffAuditor\\Tests\\DiffGeneratorTest::testCompareDetectsAddedIndex":0}}
+{"version":1,"defects":[],"times":{"DbDiffAuditor\\Tests\\DiffGeneratorTest::testCompareDetectsAddedColumn":0.004,"DbDiffAuditor\\Tests\\DiffGeneratorTest::testCompareDetectsAddedIndex":0.001}}

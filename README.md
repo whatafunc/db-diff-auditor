@@ -2,18 +2,19 @@
 
 A PHP-based database schema auditing tool designed to work with MySQL and PostgreSQL. Its main purpose is to track changes in your database structure over time.
 
-## Core Functionality
+## Philosophy and Intended Use Case
 
-*   **Database Introspection:** It can connect to your database and analyze its structure, including tables, columns, indexes, and foreign keys.
-*   **Snapshot Management:** It allows you to create snapshots of your database schema at any given point. These snapshots are saved as JSON files in the `.db-snapshots` directory.
-    *   **Why JSON for Snapshots?**
-        The tool uses JSON (JavaScript Object Notation) for storing database snapshots due to its balance of readability, interoperability, and safety, which are crucial for a schema auditing tool:
-        *   **Human Readability:** JSON files are plain text and easily readable, allowing developers to quickly inspect and understand the schema structure without special tools. This aids in manual review and debugging.
-        *   **Interoperability:** As a language-agnostic format, JSON ensures that these snapshots can be easily consumed and processed by other programming languages or tools, enhancing the flexibility and integration possibilities of the auditor.
-        *   **Security:** Unlike PHP's native serialization, JSON is generally safer for data exchange as it doesn't allow for arbitrary code execution upon deserialization, reducing potential vulnerabilities.
-        *   **Efficiency Trade-offs:** While PHP's `serialize()` might offer marginal performance or size benefits for complex PHP objects, the advantages of JSON in terms of human readability, broad interoperability, and inherent security outweigh these for a schema definition. The size and processing speed of schema snapshots are typically not a performance bottleneck for this application.
-*   **Difference Generation:** It can compare two database schema snapshots (e.g., the current state vs. the last snapshot) and identify the differences.
-*   **SQL Export:** It can generate the necessary SQL statements to represent the detected changes, such as `CREATE TABLE`, `ALTER TABLE`, etc.
+While there are many powerful database migration frameworks available, `db-diff-auditor` is not intended to replace them. Instead, it is designed to fill a specific niche for developers who value simplicity, visibility, and control, especially in the following scenarios:
+
+1.  **For the Hands-On Developer:** Many developers prefer to make schema changes directly in their database client (like Sequel Pro, DBeaver, or the command line) and then want a quick and easy way to capture those changes in a version-controllable format. This tool is perfect for that workflow. It provides a code-based confirmation of your manual changes and generates the SQL to replicate them elsewhere.
+
+2.  **For AI-Assisted Development:** As AI tools become more common in the development process, there is a growing need for simple, focused tools to audit the changes they make. This tool provides a clear and auditable trail of any schema changes suggested or applied by an AI, allowing developers to maintain full visibility and control over their database structure.
+
+In short, `db-diff-auditor` is about providing a lightweight, straightforward, and auditable bridge between your database and your codebase.
+
+# For Library Consumers
+
+This section explains how to install and use this library in your own projects.
 
 ## Installation
 
@@ -33,7 +34,7 @@ You can then install the library via Composer:
 composer require whatafunc/db-diff-auditor
 ```
 
-## Usage as a Library
+## Usage
 
 You can use the `DbDiffAuditor` class in your own PHP projects to programmatically handle schema auditing.
 
@@ -70,20 +71,27 @@ $sql = $auditor->exportChanges($changes);
 echo $sql;
 ```
 
+You can also use the command-line tool provided by this library. After installing the library, the `db-diff` command will be available in your project's `vendor/bin` directory.
+
+```bash
+vendor/bin/db-diff db:check
+```
+
+# For Library Contributors
+
+This section explains how to set up the development environment, run the development CLI tool, and run the tests for this library.
+
+## Development Setup
+
+1.  **Clone the repository:** `git clone https://github.com/whatafunc/db-diff-auditor.git`
+2.  **Install Dependencies:** Run `composer install` to install both library and development dependencies.
+3.  **Configure Environment:** Copy `.env.example` to `.env` and fill in your local database credentials. This is only for the development CLI tool.
+
 ## Development CLI Tool
 
-This project includes a command-line tool for development and testing purposes.
-
-### Configuration
-
-The CLI tool is configured via a `.env` file in the root of the project.
-
-1.  Copy the `.env.example` file to a new file named `.env`.
-2.  Edit the `.env` file to match your local database credentials.
+This project includes a command-line tool for development and testing purposes. You can run the commands using Composer's `scripts` feature.
 
 ### Available Commands
-
-You can run the commands using Composer's `scripts` feature.
 
 #### Creating a Snapshot
 
@@ -96,8 +104,6 @@ composer db-diff db:snapshot
 ```bash
 composer db-diff db:check
 ```
-
-This command compares the current state of your database with the most recent snapshot and generates a `changes.sql` file.
 
 #### Comparing the Last Two Snapshots
 
@@ -122,12 +128,10 @@ The project uses **unit tests** to ensure the core logic is reliable and works a
 
 ### Running Tests
 
-*   **Framework:** PHPUnit is used for unit and integration tests.
-    *   **Configuration:** PHPUnit automatically uses the `phpunit.xml.dist` file for its configuration. This file specifies that tests are located in the `./tests` directory and that test files should end with `Test.php`.
-*   **How to run tests:** You can run the test suite using Composer:
-    ```bash
-    composer test
-    ```
+You can run the test suite using Composer:
+```bash
+composer test
+```
 
 ## Continuous Integration
 
@@ -135,5 +139,3 @@ This project uses GitHub Actions to automatically run the test suite on every pu
 
 *   **Workflow:** The CI workflow is defined in the `.github/workflows/ci.yml` file.
 *   **Environment:** The tests are run in a minimal `php:8.1-alpine` Docker container to ensure a consistent and lightweight testing environment.
-
-This automated process ensures that any new changes are automatically verified, maintaining the quality and reliability of the library.
